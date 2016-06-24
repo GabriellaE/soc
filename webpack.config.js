@@ -17,7 +17,8 @@ const common = {
   },
   output: {
     path: PATHS.build,
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    sourceMapFilename: "[file].js.map"
   },
   module: {
     loaders: [
@@ -39,28 +40,31 @@ const common = {
   }
 };
 
+var buildConfig = merge(common, {});
+var devConfig = merge(common, {
+  devServer: {
+    contentBase: PATHS.build,
+    historyApiFallback: true,
+    hot: true,
+    inline: true,
+    progress: true,
+    stats: 'errors-only',
+    host: process.env.HOST,
+    port: process.env.PORT || 8080
+  },
+  devtool: 'inline-source-map',
+  plugins: [
+    new webpack.HotModuleReplacementPlugin()
+  ]
+});
+
 switch (TARGET) {
   case 'build':
-    module.exports = merge(common, {});
+    module.exports = buildConfig;
     break;
   case 'dev':
-    module.exports = merge(common, {
-      devServer: {
-        devtool: 'eval-source-map',
-        contentBase: PATHS.build,
-        historyApiFallback: true,
-        hot: true,
-        inline: true,
-        progress: true,
-        stats: 'errors-only',
-        host: process.env.HOST,
-        port: process.env.PORT || 8080
-      },
-      plugins: [
-        new webpack.HotModuleReplacementPlugin()
-      ]
-    });
+    module.exports = devConfig;
     break;
   default:
-    console.error('Unsupported npm script target: ', TARGET);
+    module.exports = devConfig;
 }
