@@ -52,7 +52,7 @@ var devConfig = merge(common, {
     host: process.env.HOST,
     port: process.env.PORT || 8080
   },
-  devtool: 'inline-source-map',
+  devtool: 'eval',
   plugins: [
     new webpack.HotModuleReplacementPlugin()
   ]
