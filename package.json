@@ -27,14 +27,6 @@
     "lodash": "^4.12.0",
     "moment": "^2.13.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sskogen/uio-kost-db.git"
-  },
   "author": "Simen Skogen <simenskogen@gmail.com>",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sskogen/uio-kost-db/issues"
-  },
-  "homepage": "https://github.com/sskogen/uio-kost-db#readme"
 }
